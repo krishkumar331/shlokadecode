@@ -1,0 +1,140 @@
+:root {
+    --primary: #5D4037;
+    --secondary: #8D6E63;
+    --accent: #FF7043;
+    --background: #FAFAFA;
+    --text: #212121;
+    --light-text: #757575;
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+    --primary: #795548;
+    --secondary: #6D4C41;
+    --accent: #FF8A65;
+    --background: #121212;
+    --text: #FFFFFF;
+    --light-text: #BDBDBD;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    transition: all 0.3s ease;
+}
+
+/* Navbar Styles */
+.navbar {
+    position: fixed;
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: var(--primary);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    transition: color 0.3s ease;
+}
+
+/* Parallax Sections */
+.parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hero Section */
+.hero {
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/hero-bg.jpg');
+    color: white;
+    text-align: center;
+}
+
+.hero-content {
+    padding: 2rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Category Grid */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.category-card {
+    background: var(--secondary);
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Meditation Mode */
+.meditation-mode {
+    background: var(--background);
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.meditation-mode textarea {
+    width: 100%;
+    max-width: 800px;
+    height: 300px;
+    margin: 2rem auto;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--secondary);
+    color: white;
+    resize: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+}

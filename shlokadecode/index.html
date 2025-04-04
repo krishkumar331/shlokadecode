@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कविता संगम - Hindi Poetry Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #D68060;
+            --secondary-color: #4F6D7A;
+            --accent-color: #F9A03F;
+            --dark-bg: #1D2731;
+            --light-bg: #F5F5F5;
+            --dark-text: #333333;
+            --light-text: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .dark-mode header {
+            background-color: rgba(29, 39, 49, 0.9);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 1rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .dark-mode .nav-links a {
+            color: var(--light-text);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-text);
+            transition: var(--transition);
+        }
+
+        .dark-mode .theme-toggle {
+            color: var(--light-text);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section with Parallax */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--light-text);
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            background-image: url('https://source.unsplash.com/1600x900/?india,poetry');
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-btn {
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .hero-btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Sections Common Styles */
+        section {
+            padding: 5rem 2rem;
+            scroll-margin-top: 5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+
+        /* Featured Poems Section */
+        .featured-poems {
+            background-color: var(--light-bg);
+            transition: var(--transition);
+        }
+
+        .dark-mode .featured-poems {
+            background-color: var(--dark-bg);
+        }
+
+        .poems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .dark-mode .poem-card {
+            background-color: #2c3e50;
+        }
+
+        .poem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .poem-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .poem-content {
+            padding: 1.5rem;
+        }
+
+        .poem-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .poem-title {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+            color: var(--dark-text);
+        }
+
+        .dark-mode .poem-title {
+            color: var(--light-text);
+        }
+
+        .poem-author {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .poem-author {
+            color: #ddd;
+        }
+
+        .poem-preview {
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .poem-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .poem-actions button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .poem-actions button:hover {
+            color: var(--accent-color);
+        }
+
+        /* Categories Section with Parallax */
+        .categories {
+            position: relative;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url('https://source.unsplash.com/1600x900/?manuscript,ancient');
+            color: var(--light-text);
+            text-align: center;
+        }
+
+        .categories::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .categories-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-desc {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Audiobooks Section */
+        .audiobooks {
+            background-color: var(--light-bg);
+            transition: var(--transition);
+        }
+
+        .dark-mode .audiobooks {
+            background-color: var(--dark-bg);
+        }
+
+        .audiobooks-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .audio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .audio-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .dark-mode .audio-card {
+            background-color: #2c3e50;
+        }
+
+        .audio-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .audio-content {
+            padding: 1.5rem;
+        }
+
+        .audio-title {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .audio-author {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .audio-author {
+            color: #ddd;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        /* Meditative Mode */
+        .meditative-mode {
+            position: relative;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url('https://source.unsplash.com/1600x900/?meditation,calm');
+            color: var(--light-text);
+            text-align: center;
+        }
+
+        .meditative-mode::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .meditative-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .meditative-btn {
+            padding: 1rem 2rem;
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 2rem;
+        }
+
+        .meditative-btn:hover {
+            background-color: white;
+            color: var(--dark-text);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            padding: 3rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 0.8rem;
+            color: var(--light-text);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            position: relative;
+            padding: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .dark-mode .modal-content {
+            background-color: var(--dark-bg);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--dark-text);
+        }
+
+        .dark-mode .close-modal {
+            color: var(--light-text);
+        }
+
+        /* User Profile Modal */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 1.5rem;
+            object-fit: cover;
+        }
+
+        .profile-info h2 {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .profile-bio {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .profile-bio {
+            color: #ddd;
+        }
+
+        .profile-stats {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            margin-right: 2rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .dark-mode .stat-label {
+            color: #ddd;
+        }
+
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 2rem;
+        }
+
+        .profile-tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .profile-tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Writing Mode */
+        .writing-mode {
+            background-color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .dark-mode .writing-mode {
+            background-color: #1e272e;
+        }
+
+        .writing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .poem-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .poem-form input,
+        .poem-form select,
+        .poem-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: white;
+            color: var(--dark-text);
+            transition: var(--transition);
+        }
+
+        .dark-mode .poem-form input,
+        .dark-mode .poem-form select,
+        .dark-mode .poem-form textarea {
+            background-color: #2c3e50;
+            color: var(--light-text);
+            border-color: #364049;
+        }
+
+        .poem-form textarea {
+            min-height: 300px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .form-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-left: 1rem;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .cancel-btn {
+            background-color: transparent;
+            border: 1px solid #ddd;
+        }
+
+        .dark-mode .cancel-btn {
+            border-color: #364049;
+            color: var(--light-text);
+        }
+
+        .cancel-btn:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dark-mode .cancel-btn:hover {
+            background-color: #364049;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 1rem 0;
+                box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .dark-mode .nav-links {
+                background-color: var(--dark-bg);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+                text-align: center;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation Styles */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">कविता संगम</div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#featured">Featured Poems</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#audiobooks">Audiobooks</a></li>
+                <li><a href="#meditative">Meditative Mode</a></li>
+                <li><a href="#" id="login-btn">Login</a></li>
+            </ul>
+            <button class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section with Parallax -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="fade-in">कविता संगम</h1>
+            <p class="fade-in delay-200">Discover the beautiful world of Hindi poetry - a platform where words transform into emotions and thoughts come alive.</p>
+            <a href="#featured" class="hero-btn fade-in delay-300">Explore Poems</a>
+        </div>
+    </section>
+
+    <!-- Featured Poems Section -->
+    <section class="featured-poems" id="featured">
+        <h2 class="section-title">Featured Poems</h2>
+        <div class="poems-grid">
+            <!-- Poem Card 1 -->
+            <div class="poem-card fade-in">
+                <div class="poem-img" style="background-image: url('https://source.unsplash.com/500x300/?love,romance');"></div>
+                <div class="poem-content">
+                    <span class="poem-category">प्रेम (Love)</span>
+                    <h3 class="poem-title">अनकही बातें</h3>
+                    <p class="poem-author">By Rahul Sharma</p>
+                    <p class="poem-preview">कुछ बातें हैं जो कही नहीं जातीं, कुछ अहसास हैं जो बयां नहीं होते...</p>
+                    <div class="poem-actions">
+                        <button><i class="far fa-heart"></i> 124</button>
+                        <button><i class="far fa-comment"></i> 18</button>
+                        <button><i class="fas fa-share"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Poem Card 2 -->
+            <div class="poem-card fade-in delay-100">
+                <div class="poem-img" style="background-image: url('https://source.unsplash.com/500x300/?patriotic,flag');"></div>
+                <div class="poem-content">
+                    <span class="poem-category">देशभक्ति (Patriotism)</span>
+                    <h3 class="poem-title">मेरा भारत महान</h3>
+                    <p class="poem-author">By Priya Verma</p>
+                    <p class="poem-preview">हर पल देश के लिए समर्पित, हर सांस में बसा है अभिमान...</p>
+                    <div class="poem-actions">
+                        <button><i class="far fa-heart"></i> 156</button>
+                        <button><i class="far fa-comment"></i> 24</button>
+                        <button><i class="fas fa-share"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Poem Card 3 -->
+            <div class="poem-card fade-in delay-200">
+                <div class="poem-img" style="background-image: url('https://source.unsplash.com/500x300/?separation,distance');"></div>
+                <div class="poem-content">
+                    <span class="poem-category">विरह (Separation)</span>
+                    <h3 class="poem-title">बिछड़े हुए पल</h3>
+                    <p class="poem-author">By Amit Kumar</p>
+                    <p class="poem-preview">दूरियों के इन पलों में, याद तेरी आती है, हर सांस मेरी तुझको, पुकारती जाती है...</p>
+                    <div class="poem-actions">
+                        <button><i class="far fa-heart"></i> 98</button>
+                        <button><i class="far fa-comment"></i> 12</button>
+                        <button><i class="fas fa-share"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Poem Card 4 -->
+            <div class="poem-card fade-in delay-300">
+                <div class="poem-img" style="background-image: url('https://source.unsplash.com/500x300/?nature,peace');"></div>
+                <div class="poem-content">
+                    <span class="poem-category">आदि (Others)</span>
+                    <h3 class="poem-title">प्रकृति का आह्वान</h3>
+                    <p class="poem-author">By Neha Singh</p>
+                    <p class="poem-preview">हरियाली, पेड़, पौधे, नदियां और पहाड़, प्रकृति की सुंदरता का कौन करे वर्णन...</p>
+                    <div class="poem-actions">
+                        <button><i class="far fa-heart"></i> 112</button>
+                        <button><i class="far fa-comment"></i> 16</button>
+                        <button><i class="fas fa-share"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section with Parallax -->
+    <section class="categories" id="categories">
+        <div class="categories-content">
+            <h2 class="section-title" style="color: white;">Explore Categories</h2>
+            <div class="categories-grid">
+                <!-- Category 1 -->
+                <div class="category-card fade-in">
+                    <div class="category-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="category-title">प्रेम (Love)</h3>
+                    <p class="category-desc">Explore beautiful poems that celebrate love, romance, and deep emotions.</p>
+                    <button class="hero-btn">Explore</button>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="category-card fade-in delay-100">
+                    <div class="category-icon">
+                        <i class="fas fa-map-pin"></i>
+                    </div>
+                    <h3 class="category-title">विरह (Separation)</h3>
+                    <p class="category-desc">Poems that express the pain and longing of separation.</p>
+                    <button class="hero-btn">Explore</button>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="category-card fade-in delay-200">
+                    <div class="category-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h3 class="category-title">देशभक्ति (Patriotism)</h3>
+                    <p class="category-desc">Patriotic poems that inspire love and devotion for the motherland.</p>
+                    <button class="hero-btn">Explore</button>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="category-card fade-in delay-300">
+                    <div class="category-icon">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <h3 class="category-title">आदि (Others)</h3>
+                    <p class="category-desc">Explore other themes, styles, and experimental poetry.</p>
+                    <button class="hero-btn">Explore</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audiobooks Section -->
+    <section class="audiobooks" id="audiobooks">
+        <div class="audiobooks-container">
+            <h2 class="section-title">Listen to Poems</h2>
+            <div class="audio-grid">
+                <!-- Audio Card 1 -->
+                <div class="audio-card fade-in">
+                    <div class="audio-img" style="background-image: url('https://source.unsplash.com/500x300/?microphone,audio');"></div>
+                    <div class="audio-content">
+                        <h3 class="audio-title">कबीर के दोहे</h3>
+                        <p class="audio-author">By Kabir Das</p>
+                        <audio class="audio-player" controls>
+                            <source src="#" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- Audio Card 2 -->
+                <div class="audio-card fade-in delay-100">
+                    <div class="audio-img" style="background-image: url('https://source.unsplash.
+<div class="audio-img" style="background-image: url('https://source.unsplash.com/500x300/?poetry,recitation');"></div>
+                    <div class="audio-content">
+                        <h3 class="audio-title">रश्मिरथी</h3>
+                        <p class="audio-author">By Ramdhari Singh Dinkar</p>
+                        <audio class="audio-player" controls>
+                            <source src="#" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- Audio Card 3 -->
+                <div class="audio-card fade-in delay-200">
+                    <div class="audio-img" style="background-image: url('https://source.unsplash.com/500x300/?classic,vintage');"></div>
+                    <div class="audio-content">
+                        <h3 class="audio-title">मधुशाला</h3>
+                        <p class="audio-author">By Harivansh Rai Bachchan</p>
+                        <audio class="audio-player" controls>
+                            <source src="#" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meditative Mode Section with Parallax -->
+    <section class="meditative-mode" id="meditative">
+        <div class="meditative-content">
+            <h2 class="section-title" style="color: white;">Meditative Writing Mode</h2>
+            <p class="fade-in">Experience a distraction-free environment for your poetic inspiration. Embrace the calm and let your creativity flow naturally.</p>
+            <button class="meditative-btn fade-in delay-100" id="start-writing">Start Writing</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>कविता संगम</h3>
+                <p>A platform dedicated to Hindi poetry and literature, bringing poets and poetry lovers together.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#featured">Featured Poems</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#audiobooks">Audiobooks</a></li>
+                    <li><a href="#meditative">Meditative Mode</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Subscribe</h3>
+                <p>Stay updated with the latest poems and features.</p>
+                <form>
+                    <input type="email" placeholder="Enter your email" style="width: 100%; padding: 0.8rem; margin-top: 1rem; border-radius: 5px; border: none;">
+                    <button type="submit" class="hero-btn" style="margin-top: 1rem; width: 100%;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 कविता संगम. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2 style="text-align: center; margin-bottom: 2rem;">Login / Register</h2>
+            <div class="login-form">
+                <input type="text" placeholder="Username or Email" required>
+                <input type="password" placeholder="Password" required>
+                <button class="hero-btn" style="width: 100%; margin-top: 1rem;">Login</button>
+                <p style="text-align: center; margin-top: 1rem;">Don't have an account? <a href="#" style="color: var(--primary-color);">Register</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div class="modal" id="profile-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="profile-header">
+                <img src="https://source.unsplash.com/200x200/?portrait" alt="User Avatar" class="profile-avatar">
+                <div class="profile-info">
+                    <h2>Rahul Sharma</h2>
+                    <p class="profile-bio">Passionate Hindi poet with a love for traditional and modern poetry styles.</p>
+                    <button class="hero-btn">Follow</button>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-value">24</span>
+                    <span class="stat-label">Poems</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">1.2K</span>
+                    <span class="stat-label">Followers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">453</span>
+                    <span class="stat-label">Following</span>
+                </div>
+            </div>
+            <div class="profile-tabs">
+                <div class="profile-tab active" data-tab="poems">Poems</div>
+                <div class="profile-tab" data-tab="saved">Saved</div>
+                <div class="profile-tab" data-tab="about">About</div>
+            </div>
+            <div class="tab-content active" id="poems-tab">
+                <div class="poems-grid">
+                    <!-- Sample poem cards would go here -->
+                    <div class="poem-card">
+                        <div class="poem-img" style="background-image: url('https://source.unsplash.com/500x300/?poetry');"></div>
+                        <div class="poem-content">
+                            <h3 class="poem-title">अनकही बातें</h3>
+                            <p class="poem-preview">कुछ बातें हैं जो कही नहीं जातीं...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="saved-tab">
+                <p>Saved poems will appear here.</p>
+            </div>
+            <div class="tab-content" id="about-tab">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia, magna eu finibus ultrices, quam nibh congue eros, eu condimentum lacus metus nec nisi. Proin euismod nibh at metus porttitor, vel volutpat nulla tincidunt.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Writing Mode Modal -->
+    <div class="modal" id="writing-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="writing-header">
+                <h2>Meditative Writing Mode</h2>
+                <p>Focus on your creativity in this distraction-free environment.</p>
+            </div>
+            <div class="poem-form">
+                <input type="text" placeholder="Title of your poem" required>
+                <select required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="love">प्रेम (Love)</option>
+                    <option value="separation">विरह (Separation)</option>
+                    <option value="patriotism">देशभक्ति (Patriotism)</option>
+                    <option value="other">आदि (Others)</option>
+                </select>
+                <textarea placeholder="Write your poem here..." required></textarea>
+                <div class="form-actions">
+                    <button class="form-btn cancel-btn">Cancel</button>
+                    <button class="form-btn submit-btn">Publish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // DOM Elements
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const modals = document.querySelectorAll('.modal');
+        const loginBtn = document.getElementById('login-btn');
+        const loginModal = document.getElementById('login-modal');
+        const profileModal = document.getElementById('profile-modal');
+        const writingModal = document.getElementById('writing-modal');
+        const startWritingBtn = document.getElementById('start-writing');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+        const profileTabs = document.querySelectorAll('.profile-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Theme Toggle
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Modal Functions
+        function openModal(modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAllModals() {
+            modals.forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        // Modal Event Listeners
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(loginModal);
+        });
+
+        startWritingBtn.addEventListener('click', () => {
+            openModal(writingModal);
+        });
+
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener('click', closeAllModals);
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            modals.forEach(modal => {
+                if (e.target === modal) {
+                    closeAllModals();
+                }
+            });
+        });
+
+        // Profile Tab Switching
+        profileTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                profileTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Hide all tab contents
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Show relevant tab content
+                const tabId = tab.getAttribute('data-tab') + '-tab';
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Open profile modal when clicking on poem author
+        document.querySelectorAll('.poem-author').forEach(author => {
+            author.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(profileModal);
+            });
+        });
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const parallaxSections = document.querySelectorAll('.hero, .categories, .meditative-mode');
+            
+            parallaxSections.forEach(section => {
+                const scrollY = window.pageYOffset;
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                // Check if section is in viewport
+                if (scrollY > sectionTop - window.innerHeight && scrollY < sectionTop + sectionHeight) {
+                    const yPos = -(scrollY - sectionTop) / 5;
+                    section.style.backgroundPositionY = `${yPos}px`;
+                }
+            });
+        });
+
+        // Fade-in Animation on Scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        fadeInOnScroll(); // Run once on page load
+        
+        // Open poem details on click
+        document.querySelectorAll('.poem-title').forEach(title => {
+            title.addEventListener('click', () => {
+                // This could open a detailed poem view
+                alert('Poem details feature coming soon!');
+            });
+        });
+        
+        // Like functionality
+        document.querySelectorAll('.poem-actions button:first-child').forEach(likeBtn => {
+            likeBtn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+                const likeCount = parseInt(this.textContent);
+                if (icon.classList.contains('fas')) {
+                    this.textContent = '';
+                    this.appendChild(icon);
+                    this.append(` ${likeCount + 1}`);
+                } else {
+                    this.textContent = '';
+                    this.appendChild(icon);
+                    this.append(` ${likeCount - 1}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
